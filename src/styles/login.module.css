@@ -1,0 +1,25 @@
+.imgContainer {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.imgProfile {
+    height: 70;
+    width: 70;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.gap {
+    padding: 30px;
+}
+
+.input {
+    width: 100% !important
+}
+.btn {
+    justify-content: center;
+    width: 100%;
+}
