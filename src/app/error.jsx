@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useEffect } from "react";
 import { Button } from "antd";
-import errorPic from "@/assets/images/error.jpg";
+import errorPic from "@/assets/images/error.png";
 import styles from "@/styles/error.module.css";
 
 export default function Error({ error }) {

@@ -109,15 +109,3 @@
         display: block;
     }
 }
-
-.btnBgHead {
-    height: 50px !important;
-    border: 1px solid transparent !important;
-    border-radius: 35px !important;
-    font-weight: 500 !important;
-}
-
-.btnBgHead>svg {
-    display: inline;
-    margin-left: 5px;
-}
