@@ -1,3 +1,13 @@
-.home {
-    margin-top: 50px;
+.transparent {
+    background-color: transparent !important;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu {
+    width: 100%;
 }
