@@ -152,13 +152,13 @@ const Menu = (props) => {
           <div></div>
           <div></div>
         </div>
-        <div className="mb:hidden sm:hidden lg:grid lg:grid-cols-3 ">
+        <div className="mb:hidden sm:hidden lg:grid lg:grid-cols-3 text-center">
           <div className="px-20 py-5 text-center">
             Your go-to travel planner for unforgettable adventures.
           </div>
           <div className="px-20 py-5 text-justify">
-            <div className="mb-4">Link</div>
-            <div className="flex flex-col">
+            <div className="mb-4 text-center">Page</div>
+            <div className="flex flex-col text-center">
               <Link
                 href="/"
                 target="_blank"

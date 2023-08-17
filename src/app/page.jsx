@@ -1,21 +1,29 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Button, Input, Drawer, DatePicker } from "antd";
+import { Button, Input, Drawer, DatePicker, Card } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import {
-  AiOutlineArrowRight,
-  AiOutlineSearch,
-} from "react-icons/ai";
+import { AiOutlineArrowRight, AiOutlineSearch } from "react-icons/ai";
 import { BiTransfer } from "react-icons/bi";
 import { CiLocationOn } from "react-icons/ci";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import CardDestination from "@/components/cardDestination";
 import Icon_Trip from "@/assets/icons/ic_trip";
 import logo from "@/assets/images/logo.png";
+import testImg1 from "@/assets/images/test-img1.jpeg";
+import testImg2 from "@/assets/images/test-img2.jpeg";
+import plane from "@/assets/images/plane.png";
+import hotel from "@/assets/images/hotel.png";
+import destination from "@/assets/images/destination.png";
 import Loading from "./loading";
 import styles from "@/styles/home.module.css";
+import "swiper/css/pagination";
+import "swiper/css";
 
 const { RangePicker } = DatePicker;
+const { Meta } = Card;
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(false);
@@ -125,8 +133,118 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="flex justify-center px-[15%] py-[20px]">
-        landing page
+      <section className="flex flex-col justify-center items-center px-[15%] py-[20px]">
+        <div className="text-center">
+          <div className="text-xl">Choose your</div>
+          <p className="text-3xl font-bold">Perfect Destination</p>
+
+          <Swiper
+            spaceBetween={30}
+            centeredSlides={true}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Autoplay, Pagination]}
+            className="w-full"
+          >
+            <SwiperSlide className="w-full grid grid-cols-2 grid-rows-2 gap-20 my-10">
+              <CardDestination urlImage={testImg1} rateValue={5} />
+              <CardDestination urlImage={testImg2} rateValue={5} />
+              <CardDestination urlImage={testImg1} rateValue={5} />
+              <CardDestination urlImage={testImg2} rateValue={5} />
+            </SwiperSlide>
+
+            <SwiperSlide className="w-full grid grid-cols-2 grid-rows-2 gap-20 my-10">
+              <CardDestination urlImage={testImg2} rateValue={5} />
+              <CardDestination urlImage={testImg1} rateValue={2.7} />
+              <CardDestination urlImage={testImg2} rateValue={5} />
+              <CardDestination urlImage={testImg1} rateValue={5} />
+            </SwiperSlide>
+
+            <SwiperSlide className="w-full grid grid-cols-2 grid-rows-2 gap-20 my-10">
+              <CardDestination urlImage={testImg1} rateValue={5} />
+              <CardDestination urlImage={testImg2} rateValue={5} />
+              <CardDestination urlImage={testImg1} rateValue={5} />
+              <CardDestination urlImage={testImg2} rateValue={5} />
+            </SwiperSlide>
+          </Swiper>
+        </div>
+
+        <div className="my-[10px]">
+          <div className="w-1/3 block m-auto text-center mb-[10px]">
+            <div className="text-xl">Our services</div>
+            <p className="text-xl font-bold">
+              We provide various kind of service for your
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-[50px] sm:gap-5 place-items-center">
+            <Card
+              hoverable
+              className="h-[400px] w-[240px]"
+              cover={
+                <>
+                  <Image
+                    src={plane}
+                    alt="plane icon"
+                    className="aspect-square"
+                  />
+                  <hr />
+                </>
+              }
+            >
+              <Meta
+                className="text-center"
+                title="Flights"
+                description="Find and book the best flights for your next adventure with ease.www.instagram.com"
+              />
+            </Card>
+            <Card
+              className="h-[400px] w-[240px]"
+              hoverable
+              cover={
+                <>
+                  <Image
+                    src={hotel}
+                    alt="hotel icon"
+                    className="aspect-square"
+                  />
+                  <hr />
+                </>
+              }
+            >
+              <Meta
+                className="text-center"
+                title="Hotels"
+                description="Discover and book the perfect hotel for a comfortable stay during your travels."
+              />
+            </Card>
+            <Card
+              hoverable
+              className="h-[400px] w-[240px]"
+              cover={
+                <>
+                  <Image
+                    src={destination}
+                    alt="destination icon"
+                    className="aspect-square"
+                  />
+                  <hr />
+                </>
+              }
+            >
+              <Meta
+                className="text-center"
+                title="Trip Planner"
+                description="Plan and organize your trip effortlessly with our intuitive trip planner tool."
+              />
+            </Card>
+          </div>
+        </div>
       </section>
     </>
   );

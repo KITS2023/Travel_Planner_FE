@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="32" />
+        <link rel="icon" href="icon/favicon.ico" type="image/x-icon"sizes="32" />
       </head>
       <body className={inter.className}>
         <StyledComponentsRegistry>
