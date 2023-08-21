@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Drawer, Space, Button } from "antd";
+import { Drawer, Space, Button, Avatar, Popover } from "antd";
 import {
   HomeOutlined,
   CustomerServiceOutlined,
@@ -44,6 +44,13 @@ const Menu = (props) => {
     window.location.href = mailtoLink;
   };
 
+  const contentUser = (
+    <Space direction="vertical" className="px-5">
+      <Link href="/login">Login</Link>
+      <Link href="/register">Register</Link>
+    </Space>
+  );
+
   return (
     <>
       <main className="bg-cover bg-[url('./../assets/images/bg-gradient.jpeg')]">
@@ -57,7 +64,8 @@ const Menu = (props) => {
               alt="logo of travel planner"
             />
           </div>
-          <nav>
+
+          <nav className={styles.navigation}>
             <div className={styles.menuIcon} onClick={showDrawer}>
               <i className="fa fa-bars"></i>
             </div>
@@ -104,6 +112,13 @@ const Menu = (props) => {
                   <Link href="contact">Contact US</Link>
                 </li>
               </ul>
+              <Popover
+                className="2xl:hidden"
+                content={contentUser}
+                title="User A"
+              >
+                <Avatar icon={<UserOutlined />} />
+              </Popover>
               <Drawer
                 title="Menu"
                 placement="right"

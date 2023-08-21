@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Button, Input, Drawer, DatePicker, Card } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { AiOutlineArrowRight, AiOutlineSearch } from "react-icons/ai";
 import { BiTransfer } from "react-icons/bi";
@@ -73,7 +72,7 @@ export default function Home() {
             <br />
             Of Your Life
           </p>
-          <Button type="primary" className={styles.btnBgHead}>
+          <Button type="primary" className={styles.btnBgHead} onClick={() => push("/plan/create")}>
             Get Your Tour Template <AiOutlineArrowRight />
           </Button>
         </div>
@@ -200,7 +199,7 @@ export default function Home() {
               <Meta
                 className="text-center"
                 title="Flights"
-                description="Find and book the best flights for your next adventure with ease.www.instagram.com"
+                description="Find and book the best flights for your next adventure."
               />
             </Card>
             <Card
