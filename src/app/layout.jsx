@@ -1,6 +1,6 @@
 import "./globals.css";
 import StyledComponentsRegistry from "./AntdRegistry";
-import Menu from "@/components/menu";
+import Layout from "@/components/layout";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,9 +22,9 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={inter.className}>
-        <Menu>
-          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-        </Menu>
+        <StyledComponentsRegistry>
+          <Layout>{children}</Layout>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

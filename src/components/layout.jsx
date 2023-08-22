@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import { Drawer, Space, Button, Avatar, Popover } from "antd";
 import {
   HomeOutlined,
@@ -12,12 +13,16 @@ import {
 } from "@ant-design/icons";
 import { AiFillGithub } from "react-icons/ai";
 import { BiLogoFacebookCircle, BiLogoGmail } from "react-icons/bi";
+import Loading from "@/app/loading";
 import logo from "@/assets/images/logo.png";
 import styles from "@/styles/menu.module.css";
 
-const Menu = (props) => {
+const Layout = (props) => {
   const { children } = props;
+  const { push } = useRouter();
+  const pathname = usePathname();
 
+  const [isLogin, setIsLogin] = useState(false);
   const [activeMenuItem, setActiveMenuItem] = useState("");
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -48,8 +53,31 @@ const Menu = (props) => {
     <Space direction="vertical" className="px-5">
       <Link href="/login">Login</Link>
       <Link href="/register">Register</Link>
+      <Link href="/login" onClick={() => localStorage.removeItem("token")}>
+        Logout
+      </Link>
     </Space>
   );
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (
+      !token &&
+      pathname !== "/forgot-password" &&
+      pathname !== "/register" &&
+      !pathname.startsWith("/login/web/")
+    ) {
+      push("/login");
+      return;
+    }
+
+    setIsLogin(true);
+  }, [pathname, push]);
+
+  if (!isLogin) {
+    Loading;
+  }
 
   return (
     <>
@@ -251,4 +279,4 @@ const Menu = (props) => {
   );
 };
 
-export default Menu;
+export default Layout;

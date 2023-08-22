@@ -1,6 +1,6 @@
 import React from "react";
 
-function Service() {
+function Activity() {
   return (
     <>
       <section className="flex justify-center px-[15%] py-[20px]">
@@ -10,4 +10,4 @@ function Service() {
   );
 }
 
-export default Service;
+export default Activity;
