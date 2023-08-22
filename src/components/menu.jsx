@@ -56,13 +56,16 @@ const Menu = (props) => {
       <main className="bg-cover bg-[url('./../assets/images/bg-gradient.jpeg')]">
         <div className={styles.menuContainer}>
           <div className={styles.logo}>
-            <Image
-              src={logo}
-              width={150}
-              height={150}
-              priority={false}
-              alt="logo of travel planner"
-            />
+            <Link href="/">
+              <Image
+                src={logo}
+                width={150}
+                height={150}
+                style={{ width: "auto", height: "auto" }}
+                priority={false}
+                alt="logo of travel planner"
+              />
+            </Link>
           </div>
 
           <nav className={styles.navigation}>
@@ -77,15 +80,9 @@ const Menu = (props) => {
                   }`}
                   onClick={() => handleMenuItemClick("Home")}
                 >
-                  <Link href="/">Home</Link>
-                </li>
-                <li
-                  className={`${styles.menuItem} ${
-                    activeMenuItem === "Service" ? styles.active : ""
-                  }`}
-                  onClick={() => handleMenuItemClick("Service")}
-                >
-                  <Link href="/service">Service</Link>
+                  <Link href="/" replace>
+                    Home
+                  </Link>
                 </li>
                 <li
                   className={`${styles.menuItem} ${
@@ -94,6 +91,16 @@ const Menu = (props) => {
                   onClick={() => handleMenuItemClick("Destination")}
                 >
                   <Link href="/destination">Destination</Link>
+                </li>
+                <li
+                  className={`${styles.menuItem} ${
+                    activeMenuItem === "activity" ? styles.active : ""
+                  }`}
+                  onClick={() => handleMenuItemClick("activity")}
+                >
+                  <Link href="/activity" replace>
+                    Activity
+                  </Link>
                 </li>
                 <li
                   className={`${styles.menuItem} ${
@@ -112,11 +119,7 @@ const Menu = (props) => {
                   <Link href="contact">Contact US</Link>
                 </li>
               </ul>
-              <Popover
-                className="2xl:hidden"
-                content={contentUser}
-                title="User A"
-              >
+              <Popover content={contentUser} title="User A">
                 <Avatar icon={<UserOutlined />} />
               </Popover>
               <Drawer
@@ -130,12 +133,12 @@ const Menu = (props) => {
                     <HomeOutlined className={styles.iconLink} />
                     Home
                   </Link>
-                  <Link className={styles.link} href="/service">
-                    <CustomerServiceOutlined className={styles.iconLink} />{" "}
-                    Service
-                  </Link>
                   <Link className={styles.link} href="/destination">
                     <ShopOutlined className={styles.iconLink} /> Destination
+                  </Link>
+                  <Link className={styles.link} href="/activity">
+                    <CustomerServiceOutlined className={styles.iconLink} />{" "}
+                    Activity
                   </Link>
                   <Link className={styles.link} href="/about">
                     <InfoOutlined className={styles.iconLink} />
@@ -161,6 +164,7 @@ const Menu = (props) => {
               width={150}
               height={150}
               priority={false}
+              style={{ width: "auto", height: "auto" }}
               alt="logo of travel planner"
             />
           </div>
@@ -182,18 +186,18 @@ const Menu = (props) => {
                 Home
               </Link>
               <Link
-                href="/service"
-                target="_blank"
-                className="hover:underline decoration-1"
-              >
-                Service
-              </Link>
-              <Link
                 href="/destination"
                 target="_blank"
                 className="hover:underline decoration-1"
               >
                 Destination
+              </Link>
+              <Link
+                href="/activity"
+                target="_blank"
+                className="hover:underline decoration-1"
+              >
+                Activity
               </Link>
               <Link
                 href="/about"

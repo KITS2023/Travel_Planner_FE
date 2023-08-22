@@ -26,7 +26,7 @@ const ForgotPassword = () => {
         <hr />
 
         <Text>Please input your email or username to search your account</Text>
-        <Space className={styles.gap}>
+        <div className="my-5 w-full">
           <Input
             className={styles.input}
             type="text"
@@ -34,7 +34,7 @@ const ForgotPassword = () => {
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Email or Username"
           />
-        </Space>
+        </div>
         <hr />
         <Space
           className={`${styles.btn} ${styles.gap}`}
