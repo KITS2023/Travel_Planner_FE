@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Button, Input, Drawer, DatePicker, Card } from "antd";
 import { AiOutlineArrowRight, AiOutlineSearch } from "react-icons/ai";
@@ -23,6 +24,7 @@ const { RangePicker } = DatePicker;
 const { Meta } = Card;
 
 export default function Home() {
+  const { push } = useRouter();
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {

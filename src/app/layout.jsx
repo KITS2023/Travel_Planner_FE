@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <Layout>{children}</Layout>
+        <Layout>{children}</Layout>
         </StyledComponentsRegistry>
       </body>
     </html>

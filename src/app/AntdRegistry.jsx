@@ -1,29 +1,32 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { StyleProvider, createCache, extractStyle } from "@ant-design/cssinjs";
 import { ConfigProvider } from "antd";
 import { useServerInsertedHTML } from "next/navigation";
 
 const StyledComponentsRegistry = ({ children }) => {
-  const cache = createCache();
-  useServerInsertedHTML(() => (
-    <style
-      id="antd"
-      dangerouslySetInnerHTML={{ __html: extractStyle(cache, true) }}
-    />
-  ));
-  return (
-    <StyleProvider cache={cache}>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: "#8992E5",
-          },
+  const [cache] = useState(() => createCache());
+
+  useServerInsertedHTML(() => {
+    return (
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `</script>${extractStyle(cache)}<script>`,
         }}
-      >
-        {children}
-      </ConfigProvider>
-    </StyleProvider>
+      />
+    );
+  });
+
+  return (
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#8992E5",
+        },
+      }}
+    >
+      <StyleProvider cache={cache}>{children}</StyleProvider>
+    </ConfigProvider>
   );
 };
 
