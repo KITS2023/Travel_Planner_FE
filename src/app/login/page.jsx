@@ -8,18 +8,8 @@ import logo from "@/assets/images/logo.png";
 
 const Login = () => {
   const { push } = useRouter();
-  const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      push("/login");
-      return;
-    }
-    setIsLogin(true);
-  }, [push]);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,17 +20,18 @@ const Login = () => {
         url: "http://localhost:8080/api/auth/login",
         data: {
           usernameOrEmail: username,
-          password
-        }
+          password,
+        },
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
+      if (response.data?.success == true) {
+        localStorage.setItem("token", response.data.token);
+        push("/");
       } else {
-        throw new Error("Failed to post user data.");
+        alert(response.data.message);
       }
     } catch (error) {
+      alert(error.message);
       console.error(error);
     }
   };
@@ -77,7 +68,7 @@ const Login = () => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -108,7 +99,7 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>

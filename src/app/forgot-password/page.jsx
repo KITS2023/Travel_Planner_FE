@@ -10,10 +10,11 @@ const ForgotPassword = () => {
   const { push } = useRouter();
   const [username, setUsername] = useState("");
 
-  const onSearchUser = () => {
-    //handle forgor password logic
-    if (true) {
-      push("/login/web"); // push to trang dang nhap
+  const onSearchUser = async () => {
+    try {
+      push(`/login/web/${username}`);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -41,7 +42,9 @@ const ForgotPassword = () => {
           style={{ alignContent: "end" }}
         >
           <Button href="/login">Cancel</Button>
-          <Button type="primary" onClick={onSearchUser}>Search</Button>
+          <Button type="primary" onClick={onSearchUser}>
+            Search
+          </Button>
         </Space>
       </div>
     </main>

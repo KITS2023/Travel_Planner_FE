@@ -2,38 +2,43 @@
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import logo from "@/assets/images/logo.png";
 import logo1 from "@/assets/images/logo-collapsed.png";
 
 const Register = () => {
+  const { push } = useRouter();
   const [fullName, setFullname] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
+  // const [selectedImage, setSelectedImage] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios({
-        method: "POST",
-        url: "http://localhost:8080/api/auth/login",
-        data: {
-          usernameOrEmail: username,
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/register",
+        {
+          fullName,
+          username,
+          email,
           password,
         },
-      });
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-      } else {
-        throw new Error("Failed to post user data.");
+      if (response) {
+        push("/login");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error during registration:", error);
     }
   };
 
@@ -69,7 +74,7 @@ const Register = () => {
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div className="flex items-center space-x-6">
+              {/* <div className="flex items-center space-x-6">
                 <div className="shrink-0">
                   {selectedImage ? (
                     <Image
@@ -103,7 +108,7 @@ const Register = () => {
                     onChange={handleImageChange}
                   />
                 </label>
-              </div>
+              </div> */}
 
               <div className="flex">
                 <label
@@ -195,28 +200,6 @@ const Register = () => {
                 <div className="mt-2">
                   <input
                     id="password"
-                    name="password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-
-              <div className="flex">
-                <div className="flex items-center justify-between">
-                  <label
-                    htmlFor="password-1"
-                    className="inline-block w-[150px] text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Confirm Password:
-                  </label>
-                </div>
-                <div className="mt-2">
-                  <input
-                    id="password-1"
                     name="password"
                     type="password"
                     value={password}
