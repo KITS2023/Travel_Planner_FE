@@ -122,12 +122,12 @@ const Layout = (props) => {
                 </li>
                 <li
                   className={`${styles.menuItem} ${
-                    activeMenuItem === "activity" ? styles.active : ""
+                    activeMenuItem === "explorer" ? styles.active : ""
                   }`}
-                  onClick={() => handleMenuItemClick("activity")}
+                  onClick={() => handleMenuItemClick("explorer")}
                 >
-                  <Link href="/activity" replace>
-                    Activity
+                  <Link href="/explorer" replace>
+                    Explorer
                   </Link>
                 </li>
                 <li
@@ -164,9 +164,9 @@ const Layout = (props) => {
                   <Link className={styles.link} href="/destination">
                     <ShopOutlined className={styles.iconLink} /> Destination
                   </Link>
-                  <Link className={styles.link} href="/activity">
+                  <Link className={styles.link} href="/explorer">
                     <CustomerServiceOutlined className={styles.iconLink} />{" "}
-                    Activity
+                    Explorer
                   </Link>
                   <Link className={styles.link} href="/about">
                     <InfoOutlined className={styles.iconLink} />
@@ -221,11 +221,11 @@ const Layout = (props) => {
                 Destination
               </Link>
               <Link
-                href="/activity"
+                href="/explorer"
                 target="_blank"
                 className="hover:underline decoration-1"
               >
-                Activity
+                Explorer
               </Link>
               <Link
                 href="/about"
