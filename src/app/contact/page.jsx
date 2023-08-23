@@ -1,12 +1,11 @@
 import React from "react";
 import ContactComponent from "@/components/ContactComponent";
 
-
 function Contact() {
   return (
     <>
       <section className="justify-center">
-       <ContactComponent />
+        <ContactComponent />
       </section>
     </>
   );
