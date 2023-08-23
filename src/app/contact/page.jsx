@@ -1,10 +1,11 @@
 import React from "react";
+import ContactComponent from "@/components/ContactComponent";
 
 function Contact() {
   return (
     <>
-      <section className="flex justify-center px-[15%] py-[20px]">
-        Contact
+      <section className="justify-center">
+        <ContactComponent />
       </section>
     </>
   );
