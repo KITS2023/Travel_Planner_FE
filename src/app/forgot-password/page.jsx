@@ -10,10 +10,11 @@ const ForgotPassword = () => {
   const { push } = useRouter();
   const [username, setUsername] = useState("");
 
-  const onSearchUser = () => {
-    //handle forgor password logic
-    if (true) {
-      push("/login/web"); // push to trang dang nhap
+  const onSearchUser = async () => {
+    try {
+      push(`/login/web/${username}`);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -26,7 +27,7 @@ const ForgotPassword = () => {
         <hr />
 
         <Text>Please input your email or username to search your account</Text>
-        <Space className={styles.gap}>
+        <div className="my-5 w-full">
           <Input
             className={styles.input}
             type="text"
@@ -34,14 +35,16 @@ const ForgotPassword = () => {
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Email or Username"
           />
-        </Space>
+        </div>
         <hr />
         <Space
           className={`${styles.btn} ${styles.gap}`}
           style={{ alignContent: "end" }}
         >
           <Button href="/login">Cancel</Button>
-          <Button type="primary" onClick={onSearchUser}>Search</Button>
+          <Button type="primary" onClick={onSearchUser}>
+            Search
+          </Button>
         </Space>
       </div>
     </main>

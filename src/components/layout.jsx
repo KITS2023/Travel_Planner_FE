@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Drawer, Space, Button } from "antd";
+import { useRouter, usePathname } from "next/navigation";
+import { Drawer, Space, Button, Avatar, Popover } from "antd";
 import {
   HomeOutlined,
   CustomerServiceOutlined,
@@ -12,12 +13,16 @@ import {
 } from "@ant-design/icons";
 import { AiFillGithub } from "react-icons/ai";
 import { BiLogoFacebookCircle, BiLogoGmail } from "react-icons/bi";
+import Loading from "@/app/loading";
 import logo from "@/assets/images/logo.png";
 import styles from "@/styles/menu.module.css";
 
-const Menu = (props) => {
+const Layout = (props) => {
   const { children } = props;
+  const { push } = useRouter();
+  const pathname = usePathname();
 
+  const [isLogin, setIsLogin] = useState(false);
   const [activeMenuItem, setActiveMenuItem] = useState("");
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -44,20 +49,54 @@ const Menu = (props) => {
     window.location.href = mailtoLink;
   };
 
+  const contentUser = (
+    <Space direction="vertical" className="px-5">
+      <Link href="/login">Login</Link>
+      <Link href="/register">Register</Link>
+      <Link href="/login" onClick={() => localStorage.removeItem("token")}>
+        Logout
+      </Link>
+    </Space>
+  );
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (
+      !token &&
+      pathname !== "/forgot-password" &&
+      pathname !== "/register" &&
+      !pathname.startsWith("/login/web/")
+    ) {
+      push("/login");
+      return;
+    }
+
+    setIsLogin(true);
+  }, [pathname, push]);
+
+  if (!isLogin) {
+    Loading;
+  }
+
   return (
     <>
       <main className="bg-cover bg-[url('./../assets/images/bg-gradient.jpeg')]">
         <div className={styles.menuContainer}>
           <div className={styles.logo}>
-            <Image
-              src={logo}
-              width={150}
-              height={150}
-              priority={false}
-              alt="logo of travel planner"
-            />
+            <Link href="/">
+              <Image
+                src={logo}
+                width={150}
+                height={150}
+                style={{ width: "auto", height: "auto" }}
+                priority={false}
+                alt="logo of travel planner"
+              />
+            </Link>
           </div>
-          <nav>
+
+          <nav className={styles.navigation}>
             <div className={styles.menuIcon} onClick={showDrawer}>
               <i className="fa fa-bars"></i>
             </div>
@@ -69,15 +108,9 @@ const Menu = (props) => {
                   }`}
                   onClick={() => handleMenuItemClick("Home")}
                 >
-                  <Link href="/">Home</Link>
-                </li>
-                <li
-                  className={`${styles.menuItem} ${
-                    activeMenuItem === "Service" ? styles.active : ""
-                  }`}
-                  onClick={() => handleMenuItemClick("Service")}
-                >
-                  <Link href="/service">Service</Link>
+                  <Link href="/" replace>
+                    Home
+                  </Link>
                 </li>
                 <li
                   className={`${styles.menuItem} ${
@@ -86,6 +119,16 @@ const Menu = (props) => {
                   onClick={() => handleMenuItemClick("Destination")}
                 >
                   <Link href="/destination">Destination</Link>
+                </li>
+                <li
+                  className={`${styles.menuItem} ${
+                    activeMenuItem === "activity" ? styles.active : ""
+                  }`}
+                  onClick={() => handleMenuItemClick("activity")}
+                >
+                  <Link href="/activity" replace>
+                    Activity
+                  </Link>
                 </li>
                 <li
                   className={`${styles.menuItem} ${
@@ -104,6 +147,9 @@ const Menu = (props) => {
                   <Link href="contact">Contact US</Link>
                 </li>
               </ul>
+              <Popover content={contentUser} title="User A">
+                <Avatar icon={<UserOutlined />} />
+              </Popover>
               <Drawer
                 title="Menu"
                 placement="right"
@@ -115,12 +161,12 @@ const Menu = (props) => {
                     <HomeOutlined className={styles.iconLink} />
                     Home
                   </Link>
-                  <Link className={styles.link} href="/service">
-                    <CustomerServiceOutlined className={styles.iconLink} />{" "}
-                    Service
-                  </Link>
                   <Link className={styles.link} href="/destination">
                     <ShopOutlined className={styles.iconLink} /> Destination
+                  </Link>
+                  <Link className={styles.link} href="/activity">
+                    <CustomerServiceOutlined className={styles.iconLink} />{" "}
+                    Activity
                   </Link>
                   <Link className={styles.link} href="/about">
                     <InfoOutlined className={styles.iconLink} />
@@ -146,6 +192,7 @@ const Menu = (props) => {
               width={150}
               height={150}
               priority={false}
+              style={{ width: "auto", height: "auto" }}
               alt="logo of travel planner"
             />
           </div>
@@ -167,18 +214,18 @@ const Menu = (props) => {
                 Home
               </Link>
               <Link
-                href="/service"
-                target="_blank"
-                className="hover:underline decoration-1"
-              >
-                Service
-              </Link>
-              <Link
                 href="/destination"
                 target="_blank"
                 className="hover:underline decoration-1"
               >
                 Destination
+              </Link>
+              <Link
+                href="/activity"
+                target="_blank"
+                className="hover:underline decoration-1"
+              >
+                Activity
               </Link>
               <Link
                 href="/about"
@@ -232,4 +279,4 @@ const Menu = (props) => {
   );
 };
 
-export default Menu;
+export default Layout;

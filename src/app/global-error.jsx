@@ -2,6 +2,7 @@
 import Link from "next/link"
 
 export default function GlobalError({ error, reset }) {
+  console.log("error", error)
   return (
     <html>
       <body>
