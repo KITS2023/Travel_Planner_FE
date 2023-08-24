@@ -1,5 +1,5 @@
 import React from "react";
-import ContactComponent from "@/components/ContactComponent";
+import ContactComponent from "@/components/contactComponent";
 
 function Contact() {
   return (
