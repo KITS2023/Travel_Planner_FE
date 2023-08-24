@@ -59,21 +59,21 @@ const Layout = (props) => {
     </Space>
   );
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
+  useEffect(() => {
+    const token = localStorage.getItem("token");
 
-  //   if (
-  //     !token &&
-  //     pathname !== "/forgot-password" &&
-  //     pathname !== "/register" &&
-  //     !pathname.startsWith("/login/web/")
-  //   ) {
-  //     push("/login");
-  //     return;
-  //   }
+    if (
+      !token &&
+      pathname !== "/forgot-password" &&
+      pathname !== "/register" &&
+      !pathname.startsWith("/login/web/")
+    ) {
+      push("/login");
+      return;
+    }
 
-  //   setIsLogin(true);
-  // }, [pathname, push]);
+    setIsLogin(true);
+  }, [pathname, push]);
 
   if (!isLogin) {
     Loading;
