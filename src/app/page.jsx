@@ -56,7 +56,7 @@ export default function Home() {
       async () => {
         const response = await axios({
           method: "GET",
-          url: `http://localhost:8080/api/destinations?record=12`,
+          url: `http://localhost:8080/api/destinations/record?limit=12`,
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
             "Content-Type": "application/json",
