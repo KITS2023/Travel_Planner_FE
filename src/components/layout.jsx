@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Children } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
@@ -53,230 +53,239 @@ const Layout = (props) => {
     <Space direction="vertical" className="px-5">
       <Link href="/login">Login</Link>
       <Link href="/register">Register</Link>
-      <Link href="/login" onClick={() => localStorage.removeItem("token")}>
+      <Link
+        href="/login"
+        onClick={() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("currentUser");
+        }}
+      >
         Logout
       </Link>
     </Space>
   );
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
 
-    if (
-      !token &&
-      pathname !== "/forgot-password" &&
-      pathname !== "/register" &&
-      !pathname.startsWith("/login/web/")
-    ) {
-      push("/login");
-      return;
-    }
+  //   if (
+  //     !token &&
+  //     pathname !== "/forgot-password" &&
+  //     pathname !== "/register" &&
+  //     !pathname.startsWith("/login/web/")
+  //   ) {
+  //     push("/login");
+  //     return;
+  //   }
 
-    setIsLogin(true);
-  }, [pathname, push]);
+  //   setIsLogin(true);
+  // }, [pathname, push]);
 
   if (!isLogin) {
     Loading;
   }
+  if (!isLogin) {
+    return <div>{children}</div>;
+  } else {
+    return (
+      <>
+        <main className="bg-cover bg-[url('./../assets/images/bg-gradient.jpeg')]">
+          <div className={styles.menuContainer}>
+            <div className={styles.logo}>
+              <Link href="/">
+                <Image
+                  src={logo}
+                  width={150}
+                  height={150}
+                  style={{ width: "auto", height: "auto" }}
+                  priority={false}
+                  alt="logo of travel planner"
+                />
+              </Link>
+            </div>
 
-  return (
-    <>
-      <main className="bg-cover bg-[url('./../assets/images/bg-gradient.jpeg')]">
-        <div className={styles.menuContainer}>
-          <div className={styles.logo}>
-            <Link href="/">
+            <nav className={styles.navigation}>
+              <div className={styles.menuIcon} onClick={showDrawer}>
+                <i className="fa fa-bars"></i>
+              </div>
+              <div className={styles.menu}>
+                <ul className={`${styles.menuItems}`}>
+                  <li
+                    className={`${styles.menuItem} ${
+                      activeMenuItem === "Home" ? styles.active : ""
+                    }`}
+                    onClick={() => handleMenuItemClick("Home")}
+                  >
+                    <Link href="/" replace>
+                      Home
+                    </Link>
+                  </li>
+                  <li
+                    className={`${styles.menuItem} ${
+                      activeMenuItem === "Destination" ? styles.active : ""
+                    }`}
+                    onClick={() => handleMenuItemClick("Destination")}
+                  >
+                    <Link href="/destination">Destination</Link>
+                  </li>
+                  <li
+                    className={`${styles.menuItem} ${
+                      activeMenuItem === "explorer" ? styles.active : ""
+                    }`}
+                    onClick={() => handleMenuItemClick("explorer")}
+                  >
+                    <Link href="/explorer" replace>
+                      Explorer
+                    </Link>
+                  </li>
+                  <li
+                    className={`${styles.menuItem} ${
+                      activeMenuItem === "About" ? styles.active : ""
+                    }`}
+                    onClick={() => handleMenuItemClick("About")}
+                  >
+                    <Link href="/about">About</Link>
+                  </li>
+                  <li
+                    className={`${styles.menuItem} ${
+                      activeMenuItem === "Contact" ? styles.active : ""
+                    }`}
+                    onClick={() => handleMenuItemClick("Contact")}
+                  >
+                    <Link href="contact">Contact US</Link>
+                  </li>
+                </ul>
+                <Popover content={contentUser} title="User A">
+                  <Avatar icon={<UserOutlined />} />
+                </Popover>
+                <Drawer
+                  title="Menu"
+                  placement="right"
+                  onClose={onCloseDrawer}
+                  open={openDrawer}
+                >
+                  <Space direction="vertical" className="drawer">
+                    <Link className={styles.link} href="/">
+                      <HomeOutlined className={styles.iconLink} />
+                      Home
+                    </Link>
+                    <Link className={styles.link} href="/destination">
+                      <ShopOutlined className={styles.iconLink} /> Destination
+                    </Link>
+                    <Link className={styles.link} href="/explorer">
+                      <CustomerServiceOutlined className={styles.iconLink} />{" "}
+                      Explorer
+                    </Link>
+                    <Link className={styles.link} href="/about">
+                      <InfoOutlined className={styles.iconLink} />
+                      About
+                    </Link>
+                    <Link className={styles.link} href="contact">
+                      <UserOutlined className={styles.iconLink} />
+                      Contact US
+                    </Link>
+                  </Space>
+                </Drawer>
+              </div>
+            </nav>
+          </div>
+
+          <section>{children}</section>
+        </main>
+        <footer className="px-[30px] bg-purple-50">
+          <div className="mb:block sm:block mb:m-auto sm:m-auto lg:grid lg:grid-cols-3">
+            <div className="flex justify-center p-5">
               <Image
                 src={logo}
                 width={150}
                 height={150}
-                style={{ width: "auto", height: "auto" }}
                 priority={false}
+                style={{ width: "auto", height: "auto" }}
                 alt="logo of travel planner"
               />
-            </Link>
-          </div>
-
-          <nav className={styles.navigation}>
-            <div className={styles.menuIcon} onClick={showDrawer}>
-              <i className="fa fa-bars"></i>
             </div>
-            <div className={styles.menu}>
-              <ul className={`${styles.menuItems}`}>
-                <li
-                  className={`${styles.menuItem} ${
-                    activeMenuItem === "Home" ? styles.active : ""
-                  }`}
-                  onClick={() => handleMenuItemClick("Home")}
-                >
-                  <Link href="/" replace>
-                    Home
-                  </Link>
-                </li>
-                <li
-                  className={`${styles.menuItem} ${
-                    activeMenuItem === "Destination" ? styles.active : ""
-                  }`}
-                  onClick={() => handleMenuItemClick("Destination")}
-                >
-                  <Link href="/destination">Destination</Link>
-                </li>
-                <li
-                  className={`${styles.menuItem} ${
-                    activeMenuItem === "explorer" ? styles.active : ""
-                  }`}
-                  onClick={() => handleMenuItemClick("explorer")}
-                >
-                  <Link href="/explorer" replace>
-                    Explorer
-                  </Link>
-                </li>
-                <li
-                  className={`${styles.menuItem} ${
-                    activeMenuItem === "About" ? styles.active : ""
-                  }`}
-                  onClick={() => handleMenuItemClick("About")}
-                >
-                  <Link href="/about">About</Link>
-                </li>
-                <li
-                  className={`${styles.menuItem} ${
-                    activeMenuItem === "Contact" ? styles.active : ""
-                  }`}
-                  onClick={() => handleMenuItemClick("Contact")}
-                >
-                  <Link href="contact">Contact US</Link>
-                </li>
-              </ul>
-              <Popover content={contentUser} title="User A">
-                <Avatar icon={<UserOutlined />} />
-              </Popover>
-              <Drawer
-                title="Menu"
-                placement="right"
-                onClose={onCloseDrawer}
-                open={openDrawer}
-              >
-                <Space direction="vertical" className="drawer">
-                  <Link className={styles.link} href="/">
-                    <HomeOutlined className={styles.iconLink} />
-                    Home
-                  </Link>
-                  <Link className={styles.link} href="/destination">
-                    <ShopOutlined className={styles.iconLink} /> Destination
-                  </Link>
-                  <Link className={styles.link} href="/explorer">
-                    <CustomerServiceOutlined className={styles.iconLink} />{" "}
-                    Explorer
-                  </Link>
-                  <Link className={styles.link} href="/about">
-                    <InfoOutlined className={styles.iconLink} />
-                    About
-                  </Link>
-                  <Link className={styles.link} href="contact">
-                    <UserOutlined className={styles.iconLink} />
-                    Contact US
-                  </Link>
-                </Space>
-              </Drawer>
+            <div></div>
+            <div></div>
+          </div>
+          <div className="mb:hidden sm:hidden lg:grid lg:grid-cols-3 text-center">
+            <div className="px-20 py-5 text-center">
+              Your go-to travel planner for unforgettable adventures.
             </div>
-          </nav>
-        </div>
-
-        <section>{children}</section>
-      </main>
-      <footer className="px-[30px] bg-purple-50">
-        <div className="mb:block sm:block mb:m-auto sm:m-auto lg:grid lg:grid-cols-3">
-          <div className="flex justify-center p-5">
-            <Image
-              src={logo}
-              width={150}
-              height={150}
-              priority={false}
-              style={{ width: "auto", height: "auto" }}
-              alt="logo of travel planner"
-            />
-          </div>
-          <div></div>
-          <div></div>
-        </div>
-        <div className="mb:hidden sm:hidden lg:grid lg:grid-cols-3 text-center">
-          <div className="px-20 py-5 text-center">
-            Your go-to travel planner for unforgettable adventures.
-          </div>
-          <div className="px-20 py-5 text-justify">
-            <div className="mb-4 text-center">Page</div>
-            <div className="flex flex-col text-center">
-              <Link
-                href="/"
-                target="_blank"
-                className="hover:underline decoration-1"
-              >
-                Home
-              </Link>
-              <Link
-                href="/destination"
-                target="_blank"
-                className="hover:underline decoration-1"
-              >
-                Destination
-              </Link>
-              <Link
-                href="/explorer"
-                target="_blank"
-                className="hover:underline decoration-1"
-              >
-                Explorer
-              </Link>
-              <Link
-                href="/about"
-                target="_blank"
-                className="hover:underline decoration-1"
-              >
-                About
-              </Link>
-              <Link
-                href="/contact"
-                target="_blank"
-                className="hover:underline decoration-1"
-              >
-                Contact US
-              </Link>
+            <div className="px-20 py-5 text-justify">
+              <div className="mb-4 text-center">Page</div>
+              <div className="flex flex-col text-center">
+                <Link
+                  href="/"
+                  target="_blank"
+                  className="hover:underline decoration-1"
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/destination"
+                  target="_blank"
+                  className="hover:underline decoration-1"
+                >
+                  Destination
+                </Link>
+                <Link
+                  href="/explorer"
+                  target="_blank"
+                  className="hover:underline decoration-1"
+                >
+                  Explorer
+                </Link>
+                <Link
+                  href="/about"
+                  target="_blank"
+                  className="hover:underline decoration-1"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/contact"
+                  target="_blank"
+                  className="hover:underline decoration-1"
+                >
+                  Contact US
+                </Link>
+              </div>
+            </div>
+            <div className="px-20 py-5 text-center flex flex-col">
+              <div>Follow us</div>
+              <div className="flex flex-row justify-center">
+                <Link
+                  className="m-3"
+                  href="https://github.com/KITS2023"
+                  target="_blank"
+                >
+                  <AiFillGithub />
+                </Link>
+                <Link
+                  className="m-3"
+                  href="https://www.facebook.com/vietlog2k"
+                  target="_blank"
+                >
+                  <BiLogoFacebookCircle />
+                </Link>
+                <Button
+                  type="text"
+                  className="my-1 ml-0"
+                  onClick={handleEmailButtonClick}
+                >
+                  <BiLogoGmail />
+                </Button>
+              </div>
             </div>
           </div>
-          <div className="px-20 py-5 text-center flex flex-col">
-            <div>Follow us</div>
-            <div className="flex flex-row justify-center">
-              <Link
-                className="m-3"
-                href="https://github.com/KITS2023"
-                target="_blank"
-              >
-                <AiFillGithub />
-              </Link>
-              <Link
-                className="m-3"
-                href="https://www.facebook.com/vietlog2k"
-                target="_blank"
-              >
-                <BiLogoFacebookCircle />
-              </Link>
-              <Button
-                type="text"
-                className="my-1 ml-0"
-                onClick={handleEmailButtonClick}
-              >
-                <BiLogoGmail />
-              </Button>
-            </div>
+          <hr />
+          <div className="text-center p-3">
+            &copy; Travel Planner. All right reserved.
           </div>
-        </div>
-        <hr />
-        <div className="text-center p-3">
-          &copy; Travel Planner. All right reserved.
-        </div>
-      </footer>
-    </>
-  );
+        </footer>
+      </>
+    );
+  }
 };
 
 export default Layout;

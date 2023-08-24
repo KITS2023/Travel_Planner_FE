@@ -107,7 +107,6 @@ function CreatePlan() {
   let timerId;
 
   const onSearchSelect = (value) => {
-    // console.log("onSearchSelect", value)
     clearTimeout(timerId);
 
     timerId = setTimeout(() => {
@@ -118,7 +117,7 @@ function CreatePlan() {
       if (!selectedOption) {
         destination.push({ value: destination.length + 1, label: value });
       }
-    }, 700);
+    }, 1000);
   };
 
   const onInvite = () => {
