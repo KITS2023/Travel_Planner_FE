@@ -1,13 +1,14 @@
 import React from 'react'
+import AboutComponent from '@/components/aboutComponent'
 
 function About() {
   return (
     <>
-      <section className="flex justify-center px-[15%] py-[20px]">
-        About
+      <section className="justify-center">
+        <AboutComponent/>
       </section>
     </>
-  )
+  );
 }
 
-export default About
+export default About;
