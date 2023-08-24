@@ -9,6 +9,7 @@ import axios from "axios";
 const { RangePicker } = DatePicker;
 
 function CreatePlan() {
+  const [data, setData] = useState(undefined);
   const [destination, setDestination] = useState([]);
   const [isPublic, setIsPublic] = useState(true);
   const [startDate, setStartDate] = useState("");
@@ -42,7 +43,14 @@ function CreatePlan() {
         console.log("error", e);
       }
     };
-  }, []);
+
+    setData({
+      startDate,
+      endDate,
+      destinationId,
+      isPublic,
+    });
+  }, [destinationId, endDate, isPublic, startDate]);
 
   const postDestination = async (name) => {
     try {
@@ -113,28 +121,7 @@ function CreatePlan() {
     }
   };
 
-  const onClickStartPlaning = async () => {
-    try {
-      const response = await axios({
-        method: "POST",
-        url: "http://localhost:8080/api/trips",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-        data: {
-          title: "Welcome to my trip",
-          startDate,
-          endDate,
-          destinationId,
-          userId: user.id,
-          isPublic,
-        },
-      });
-    } catch (err) {
-      console.log("error", err);
-    }
-  };
+  console.log("data", data);
 
   return (
     <section className="flex flex-col justify-center px-[15%] py-[20px] text-center">
@@ -191,13 +178,12 @@ function CreatePlan() {
           </div>
         </div>
         <Link
-          href={"/plan"}
+          href={{
+            pathname: "/plan",
+            query: { data: JSON.stringify(data) },
+          }}
         >
-          <Button
-            type="primary"
-            className="rounded-full"
-            onClick={onClickStartPlaning}
-          >
+          <Button type="primary" className="rounded-full">
             Start Planning
           </Button>
         </Link>
