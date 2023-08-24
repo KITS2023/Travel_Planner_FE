@@ -15,8 +15,9 @@ function CreatePlan() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [destinationId, setDestinationId] = useState("");
+  const [desCreate, setDesCreate] = useState(null);
 
-  var user = undefined;
+  var user = null;
 
   if (typeof window !== "undefined") {
     user = localStorage.getItem("currentUser");
@@ -47,10 +48,11 @@ function CreatePlan() {
     setData({
       startDate,
       endDate,
-      destinationId,
+      destinationId: desCreate?.id,
+      destinationName: desCreate?.name,
       isPublic,
     });
-  }, [destinationId, endDate, isPublic, startDate]);
+  }, [desCreate, endDate, isPublic, startDate]);
 
   const postDestination = async (name) => {
     try {
@@ -62,15 +64,15 @@ function CreatePlan() {
           "Content-Type": "application/json",
         },
         data: {
-          name: name.toLowerCase(),
+          name: name,
           description: "No description",
           rate: 5,
           imageUrl: "https://source.unsplash.com/800x600/?destination",
         },
       });
-      console.log("postDes", res);
+      setDesCreate(res.data.data);
     } catch (e) {
-      console.log("error", e);
+      console.error("error", e);
     }
   };
 
@@ -86,6 +88,12 @@ function CreatePlan() {
 
   const onSelect = (value) => {
     setDestinationId(value);
+
+    const selectedOption = destination.find((option) => option.value === value);
+    if (selectedOption) {
+      const selectedLabel = selectedOption.label;
+      postDestination(selectedLabel);
+    }
   };
 
   const onChangeSelect = (value) => {
@@ -99,6 +107,7 @@ function CreatePlan() {
   let timerId;
 
   const onSearchSelect = (value) => {
+    // console.log("onSearchSelect", value)
     clearTimeout(timerId);
 
     timerId = setTimeout(() => {
@@ -107,8 +116,7 @@ function CreatePlan() {
       );
 
       if (!selectedOption) {
-        destination.push({ value, label: value });
-        // postDestination(value);
+        destination.push({ value: destination.length + 1, label: value });
       }
     }, 700);
   };
@@ -120,8 +128,6 @@ function CreatePlan() {
       console.log(err);
     }
   };
-
-  console.log("data", data);
 
   return (
     <section className="flex flex-col justify-center px-[15%] py-[20px] text-center">

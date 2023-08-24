@@ -19,13 +19,18 @@ import destination from "@/assets/images/destination.png";
 import styles from "@/styles/home.module.css";
 import "swiper/css/pagination";
 import "swiper/css";
+import axios from "axios";
 
 const { RangePicker } = DatePicker;
 const { Meta } = Card;
 
+const blockSize = 4; // Maximum objects per block
+const blocks = [];
+
 export default function Home() {
   const { push } = useRouter();
   const [open, setOpen] = useState(false);
+  const [data, setData] = useState([]);
 
   const showDrawer = () => {
     setOpen(true);
@@ -42,10 +47,35 @@ export default function Home() {
 
       console.log("Time From:", timeFrom);
       console.log("Time To:", timeTo);
-
-      // Do something with the selected time range
+      s;
     }
   };
+
+  useEffect(() => {
+    try {
+      async () => {
+        const response = await axios({
+          method: "GET",
+          url: `http://localhost:8080/api/destinations?record=12`,
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.statusCode === 200) {
+          setData(response.data.data);
+        }
+      };
+
+      for (let i = 0; i < data.length; i += blockSize) {
+        const block = data.slice(i, i + blockSize);
+        blocks.push(block);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, [data]);
 
   return (
     <>
@@ -58,7 +88,11 @@ export default function Home() {
             <br />
             Of Your Life
           </p>
-          <Button type="primary" className={styles.btnBgHead} onClick={() => push("/plan/create")}>
+          <Button
+            type="primary"
+            className={styles.btnBgHead}
+            onClick={() => push("/plan/create")}
+          >
             Get Your Tour Template <AiOutlineArrowRight />
           </Button>
         </div>
@@ -123,40 +157,71 @@ export default function Home() {
           <div className="text-xl">Choose your</div>
           <p className="text-3xl font-bold">Perfect Destination</p>
 
-          <Swiper
-            spaceBetween={30}
-            centeredSlides={true}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Autoplay, Pagination]}
-            className="w-full"
-          >
-            <SwiperSlide className="w-full grid grid-cols-2 grid-rows-2 gap-20 my-10">
-              <CardDestination urlImage={testImg1} rateValue={5} />
-              <CardDestination urlImage={testImg2} rateValue={5} />
-              <CardDestination urlImage={testImg1} rateValue={5} />
-              <CardDestination urlImage={testImg2} rateValue={5} />
-            </SwiperSlide>
+          {data.length != 0 ? (
+            <Swiper
+              spaceBetween={30}
+              centeredSlides={true}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Autoplay, Pagination]}
+              className="w-full"
+            >
+              {blocks.map((block, index) => (
+                <SwiperSlide
+                  key={index}
+                  className="w-full grid grid-cols-2 grid-rows-2 gap-20 my-10"
+                >
+                  {block.map((item, itemIndex) => (
+                    <CardDestination
+                      key={itemIndex}
+                      urlImage={item.urlImage}
+                      rateValue={item.rateValue}
+                    />
+                  ))}
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <Swiper
+              spaceBetween={30}
+              centeredSlides={true}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Autoplay, Pagination]}
+              className="w-full"
+            >
+              <SwiperSlide className="w-full grid grid-cols-2 grid-rows-2 gap-20 my-10">
+                <CardDestination urlImage={testImg1} rateValue={5} />
+                <CardDestination urlImage={testImg2} rateValue={5} />
+                <CardDestination urlImage={testImg1} rateValue={5} />
+                <CardDestination urlImage={testImg2} rateValue={5} />
+              </SwiperSlide>
 
-            <SwiperSlide className="w-full grid grid-cols-2 grid-rows-2 gap-20 my-10">
-              <CardDestination urlImage={testImg2} rateValue={5} />
-              <CardDestination urlImage={testImg1} rateValue={2.7} />
-              <CardDestination urlImage={testImg2} rateValue={5} />
-              <CardDestination urlImage={testImg1} rateValue={5} />
-            </SwiperSlide>
+              <SwiperSlide className="w-full grid grid-cols-2 grid-rows-2 gap-20 my-10">
+                <CardDestination urlImage={testImg2} rateValue={5} />
+                <CardDestination urlImage={testImg1} rateValue={2.7} />
+                <CardDestination urlImage={testImg2} rateValue={5} />
+                <CardDestination urlImage={testImg1} rateValue={5} />
+              </SwiperSlide>
 
-            <SwiperSlide className="w-full grid grid-cols-2 grid-rows-2 gap-20 my-10">
-              <CardDestination urlImage={testImg1} rateValue={5} />
-              <CardDestination urlImage={testImg2} rateValue={5} />
-              <CardDestination urlImage={testImg1} rateValue={5} />
-              <CardDestination urlImage={testImg2} rateValue={5} />
-            </SwiperSlide>
-          </Swiper>
+              <SwiperSlide className="w-full grid grid-cols-2 grid-rows-2 gap-20 my-10">
+                <CardDestination urlImage={testImg1} rateValue={5} />
+                <CardDestination urlImage={testImg2} rateValue={5} />
+                <CardDestination urlImage={testImg1} rateValue={5} />
+                <CardDestination urlImage={testImg2} rateValue={5} />
+              </SwiperSlide>
+            </Swiper>
+          )}
         </div>
 
         <div className="my-[10px]">

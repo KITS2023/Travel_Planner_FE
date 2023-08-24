@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button, Input, Result } from "antd";
 import axios from "axios";
@@ -8,10 +8,16 @@ function TripPlan() {
   const { push } = useRouter();
   const searchParams = useSearchParams();
   const data = searchParams.get("data");
-  const { startDate, endDate, destinationId, isPublic } = JSON.parse(data);
+  const { startDate, endDate, destinationId, destinationName, isPublic } =
+    JSON.parse(data);
 
   const [title, setTitle] = useState("");
+  var user = {};
 
+  if (typeof window !== "undefined") {
+    user = JSON.parse(localStorage.getItem("currentUser"));
+  }
+  
   const onClickStartPlaning = async () => {
     try {
       const response = await axios({
@@ -22,20 +28,20 @@ function TripPlan() {
           "Content-Type": "application/json",
         },
         data: {
-          title,
-          startDate,
-          endDate,
-          destinationId,
-          userId: user.id,
-          isPublic,
+          title: title,
+          startDate: startDate,
+          endDate: endDate,
+          destinationId: +destinationId,
+          userId: +user.id,
+          isPublic: isPublic,
         },
       });
-      console.log("res", response);
-      if (response.status === 200) {
+      // console.log("res", response);
+      if (response.data.message == "Created trip successful.") {
         push("/success");
       }
     } catch (err) {
-      console.log("error", err);
+      console.error("error", err);
     }
   };
 
@@ -47,7 +53,7 @@ function TripPlan() {
         <div className="w-1/2 block m-auto border shadow-2xl mt-[-40px] backdrop-filter backdrop-blur-md inset-0 p-5">
           <div className="w-1/2 border border-transparent  -m-30 z-10">
             <p className="font-bold text-2xl my-5">
-              Trip to {destinationId || ""}
+              Trip to {destinationName || ""}
             </p>
             <div className="text-slate-500">
               {startDate || ""} - {endDate || ""}
@@ -62,7 +68,7 @@ function TripPlan() {
 
           <div className="flex flex-col">
             <p>Places to visit: </p>
-            <Input type="text" value={destinationId} className="w-full my-3" />
+            <Input type="text" value={destinationName} className="w-full my-3" />
           </div>
 
           <div className="flex flex-col">
