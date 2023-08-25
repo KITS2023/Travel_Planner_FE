@@ -21,18 +21,15 @@ git clone https://github.com/coma123/Spring-Boot-Blog-REST-API.git
 ```
 
 Step 2: Install dependence and run
-
-<ul>
- <li>
+1.
     ```bash
     npm i
     ```
-    OR 
+     
     ```bash
     yarn
     ```
-</li>
- <li>
+2.
     ```bash
     npm run start
     ```
@@ -40,14 +37,12 @@ Step 2: Install dependence and run
     ```bash
     yarn start
     ```
-</li>
-</ul>
 
 Step 3: Run and explore app
 <br />
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-<br /><br /><br />
+<br />
 
 ---
 
