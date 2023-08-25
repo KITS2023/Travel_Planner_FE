@@ -17,7 +17,7 @@ Repository:
 Step 1: Clone project
 
 ```bash
-git clone https://github.com/coma123/Spring-Boot-Blog-REST-API.git
+git clone https://github.com/KITS2023/Travel_Planner_FE.git
 ```
 
 Step 2: Install dependence and run
