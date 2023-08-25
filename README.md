@@ -21,20 +21,20 @@ git clone https://github.com/KITS2023/Travel_Planner_FE.git
 ```
 
 Step 2: Install dependence and run
-1.
-    ```bash
+<br />1.
+    ```
     npm i
     ```
      OR
-    ```bash
+    ```
     yarn
     ```
-2.
-    ```bash
+<br />2.
+    ```
     npm run start
     ```
     OR 
-    ```bash
+    ```
     yarn start
     ```
 
