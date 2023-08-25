@@ -25,7 +25,7 @@ Step 2: Install dependence and run
     ```bash
     npm i
     ```
-     
+     OR
     ```bash
     yarn
     ```
