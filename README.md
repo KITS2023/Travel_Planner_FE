@@ -49,11 +49,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 Deme theme
 <br />
 Landing Page
-<img href="https://drive.google.com/file/d/1cxeIJRTgvUUGAg_NEQ3QjGlEaLWfFnGr/view?usp=sharing" />
+<img href="https://drive.google.com/file/d/1cxeIJRTgvUUGAg_NEQ3QjGlEaLWfFnGr/view?usp=sharing" width="500" height="600"/>
 
 <br />
 Login Page
-<img href="https://drive.google.com/file/d/15Uy1z4Y2K8jhxsawHa3xSxb5xd0HvAS8/view?usp=drive_link" />
+<img href="./public/imgs/Client_Contact.png" />
 
 <br />
 Landing Page
