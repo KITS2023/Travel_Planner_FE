@@ -48,23 +48,44 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Deme theme
 <br />
-Landing Page
-<img href="https://drive.google.com/file/d/1cxeIJRTgvUUGAg_NEQ3QjGlEaLWfFnGr/view?usp=sharing" width="500" height="600"/>
+Auth
 
-<br />
-Login Page
-<img href="./public/imgs/Client_Contact.png" width="500" height="600"/>
-
-<br />
-Landing Page
-<img href="https://drive.google.com/file/d/1cxeIJRTgvUUGAg_NEQ3QjGlEaLWfFnGr/view?usp=drive_link" />
+![Login Page](./public/imgs/Client_Login.jpg)
+![Register Page](./public/imgs/Client_Register.jpg)
+![Forgot Page](./public/imgs/Client_ForgotPass.jpg)
 
 <br />
 Landing Page
-<img href="https://drive.google.com/file/d/1cxeIJRTgvUUGAg_NEQ3QjGlEaLWfFnGr/view?usp=drive_link" />
+
+![Landing Page](./public/imgs/Client_Home.png)
 
 <br />
-Landing Page
-<img href="https://drive.google.com/file/d/1cxeIJRTgvUUGAg_NEQ3QjGlEaLWfFnGr/view?usp=drive_link" />
+Plan Page
+
+![Landing Page](./public/imgs/Client_PlanTrip1.jpg)
+
+
+<br />
+Destination Page
+
+![Landing Page](./public/imgs/Client_Destination.jpg)
+
+
+<br />
+Explore Page
+
+![Landing Page](./public/imgs/Client_Explorer.jpg)
+
+
+<br />
+About Page
+
+![Landing Page](./public/imgs/Client_About.png)
+
+
+<br />
+Contact Page
+
+![Landing Page](./public/imgs/Client_Contact.png)
 
 ---
