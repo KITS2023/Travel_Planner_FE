@@ -47,6 +47,24 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ---
 
 Deme theme
-<img href="" />
+<br />
+Landing Page
+<img href="./public/imgs/Client_Home.png" />
+
+<br />
+Login Page
+<img href="https://drive.google.com/file/d/15Uy1z4Y2K8jhxsawHa3xSxb5xd0HvAS8/view?usp=drive_link" />
+
+<br />
+Landing Page
+<img href="https://drive.google.com/file/d/1cxeIJRTgvUUGAg_NEQ3QjGlEaLWfFnGr/view?usp=drive_link" />
+
+<br />
+Landing Page
+<img href="https://drive.google.com/file/d/1cxeIJRTgvUUGAg_NEQ3QjGlEaLWfFnGr/view?usp=drive_link" />
+
+<br />
+Landing Page
+<img href="https://drive.google.com/file/d/1cxeIJRTgvUUGAg_NEQ3QjGlEaLWfFnGr/view?usp=drive_link" />
 
 ---
