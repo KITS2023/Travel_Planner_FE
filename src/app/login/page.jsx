@@ -26,6 +26,7 @@ const Login = () => {
 
       if (response.data?.success == true) {
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("currentUser", JSON.stringify(response.data.data));
         push("/");
       } else {
         alert(response.data.message);

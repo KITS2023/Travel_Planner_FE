@@ -1,0 +1,21 @@
+.boxHeader{
+    position: absolute;
+    bottom: 10%;
+}
+.txtHeader{
+    color: #fff;
+    font-weight: bold;
+    font-size: 40px;
+}
+.aboutMain{
+    padding: 2% 15%;
+    display: flex;
+}
+.hrCustom{
+    border: none; 
+    height: 2px; 
+    width: 25%;
+    background-image: linear-gradient(to right, #3a74b5, #ea3e38); 
+    margin: 20px auto; 
+}
+
