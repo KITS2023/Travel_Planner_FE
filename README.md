@@ -53,7 +53,7 @@ Landing Page
 
 <br />
 Login Page
-<img href="./public/imgs/Client_Contact.png" />
+<img href="./public/imgs/Client_Contact.png" width="500" height="600"/>
 
 <br />
 Landing Page
