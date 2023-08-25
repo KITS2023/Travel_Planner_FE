@@ -49,7 +49,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 Deme theme
 <br />
 Landing Page
-<img href="./public/imgs/Client_Home.png" />
+<img href="https://drive.google.com/file/d/1cxeIJRTgvUUGAg_NEQ3QjGlEaLWfFnGr/view?usp=sharing" />
 
 <br />
 Login Page
